@@ -1,0 +1,106 @@
+#!/usr/bin/env python
+# -*- codiing:utf-8 -*-
+import os
+import logging
+import subprocess
+logging.basicConfig(level=logging.DEBUG)
+logger=logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+import pprint 
+pp=pprint.PrettyPrinter(indent=4)
+import imp
+import tempfile
+import argparse
+
+GOOGLER="/home/devtoolsqa8/git/dailybin/bin/googler"
+EDITOR = os.environ.get("EDITOR",'vim')
+def test():
+    cmd = [GOOGLER,"-c hk", "-n 10", "--np --json" ,"hello world"]
+    out= os.popen(" ".join(cmd)).read()
+    filename = "test.sh"
+    with open(filename,'w') as f:
+       f.write(out)
+    os.system("cat test.sh")
+
+
+def delete_status_line(filepath):
+    temp = tempfile.TemporaryFile()
+    if os.path.exists(filepath):
+        with open(filepath,'r') as infile:
+           in_flag = False 
+           for line in infile:
+
+               if line.startswith("keyword_list") or line.startswith("status"):
+                   in_flag = not in_flag 
+                   continue
+               if not in_flag:
+                  temp.write(line) 
+        temp.seek(0)      
+        with open(filepath,'w') as infile:
+            map(lambda x:infile.write(x),temp.readlines())
+        temp.flush()
+        temp.close()
+def update_Major_status(filepath):
+    Major = 0 
+    if os.path.exists(filepath):
+        with open(filepath,'r') as infile:
+           for line in infile:
+               #update Q_num
+               if line.startswith("#Q_"):
+                  items = line.split("_")
+                  #Q_0_0#:I love you
+                  Major = int(items[1])
+    return Major+1
+def recursive_search(resultfile="test",keyword="hello"):
+    Major = 0
+    Minor = 0
+    Prefix  = "Q"
+    if os.path.exists(resultfile):
+       subprocess.call([EDITOR,"+/Q_{}".format(Major),resultfile])
+       rs=imp.load_source("data",resultfile) 
+       status = rs.status 
+       keyword_list = rs.keyword_list
+       Major=update_Major_status(resultfile)
+    else:
+       keyword_list = [keyword]
+       status = "contine"
+    while True:
+        if status ==".":
+           break
+        for keyword in keyword_list:
+              
+           cmd = [GOOGLER,"-c hk", "-n 10", "--np --json" ,keyword]
+           out= os.popen(" ".join(cmd)).read()
+           delete_status_line(resultfile)
+           with open(resultfile,'a+') as f:
+              Q_num = "{}_{}_{}".format(Prefix,Major,Minor) 
+              if Q_num == "Q_0_0":
+                 f.write("# -*- coding:utf-8 -*- \n")
+              f.write("######\n")
+              f.write("#")
+              f.write(Q_num)
+              f.write(" #:")
+              f.write(keyword)   
+              f.write("\n")
+              f.write("######\n")
+              f.write(out)
+           Minor += 1    
+        with open(resultfile,'a+') as f:
+           f.write("keyword_list = [ \n")
+           f.write("]\n")
+           f.write("status= \".\"\n")
+
+        subprocess.call([EDITOR,"+/Q_{}".format(Major),resultfile])
+        rs=imp.load_source("data",resultfile) 
+        status = rs.status
+        keyword_list = rs.keyword_list
+        Major += 1
+        Minor  = 0    
+
+if __name__ == "__main__":
+   parser = argparse.ArgumentParser(description="lgzrecursive")
+   parser.add_argument('-f',help='result file',type=str,default='test.py')
+   parser.add_argument('-kw',help='result file',type=str,default='hello world')
+   args = parser.parse_args()
+   
+   recursive_search(args.f,keyword=args.kw)
