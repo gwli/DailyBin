@@ -1,0 +1,21 @@
+#!/usr/bin/env python  
+# -*- coding=utf-8 -*-
+import re
+import os
+import sys
+
+help = """
+sshfs 
+=====
+
+sshfs user@remotesystem:/remote/dir /some/local/dir 
+
+sometimes, it is very slow.
+
+cifs
+====
+
+mount -t cifs -o username=testuser,password=testpassword //RT-N66U/testmapp /mnt/usbshare/
+"""
+
+print help 

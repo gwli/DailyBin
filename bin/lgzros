@@ -1,0 +1,87 @@
+#!/usr/bin/ipython -i  
+# -*- coding=utf-8 -*-
+
+def reference():
+    rst = """
+    #. youtube turtial: http://www.youtube.com/watch?v=9U6GDonGFHw
+    """
+    return rst
+
+def how_to_ipc():
+    rst = """
+    Rosbridge : it use JSON API to communicate with non-ROS programs.
+    you can install apt-get install ros-indigo-rosbridge-suite
+    """
+    return rst
+
+def how_to_install():
+    rst = """
+    just downlaod the source to src 
+    catkin_make
+    catkin_make install
+    http://wiki.ros.org/ati_force_torque
+    """
+    return rst
+
+def how_to_setup_env():
+    rst ="""
+    source /opt/ros/<branch>/setup.xx 
+    mkdir -p ~/catkin_ws/src
+    cd ~/catkin_ws/src
+    catkin_init_workspace
+    catkin_make
+    """
+    return rst 
+ 
+def catkin_is():
+    rst = """
+    A CMake-based build system that is used to build all packages in ROS
+    """
+    return rst
+
+def framework_is():
+    rst =u"""
+    #. 计算图极,node,message,topic,service
+    #. package,stack
+    #. node just as process
+    """
+    return rst
+
+def how_to_run():
+    rst = u"""
+    #. start master ``roscore``
+    #. roslaunch xxxxx  xxxxx.launch
+    #. rosrun rviz -d `rospack find xxx`/sim_furete.vcg
+    #. rostopic pub -r /cmd_vel geometry_msgs/Twist "{linear:{x:0.2,y:0,z:0},angular(x:0,y:0:z:0.5}' 
+
+    """
+    return rst
+
+def common_features():
+    rst = u"""
+    #. rviz
+    #. tf
+    #. gazebo
+    """
+    return rst
+
+def navi_filesystem():
+    rst = u"""
+    #. rospack = ros + package
+    #. roscd = ros + cd
+    #. rosls = ros +ls 
+    """
+    return rst
+   
+def understanding_service_parameters():
+    rst = u"""
+    #. rosservice list 
+    #. rosservice type clear
+    #. rosservice uri clear
+    #. rosservice call clear
+    #. rosservice set 
+    #. rosservice get 
+    #. rosservice load 
+    #. rosservice dump 
+    """
+    return rst

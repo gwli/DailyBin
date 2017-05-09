@@ -1,0 +1,33 @@
+#!/usr/bin/zsh
+step_num=1
+function step () {
+   echo "======================================================="
+   echo "|STEP $step_num | $1"
+   echo "======================================================="
+   let "step_num=$step_num+1"
+}
+
+{
+#step "install how2:stackoverflow cli "
+sudo apt-get -y install nodejs npm
+sudo ln -s /usr/bin/nodejs /usr/bin/node
+sudo npm install -g how2
+
+#step "install baidu pcs"
+cd /temp
+git clone https://github.com/GangZhuo/BaiduPCS.git
+cd BaiduPCS
+make clean
+make 
+sudo make install
+
+#step "install baidu pcs"
+gem install gist
+
+
+#step install ewward
+sudo pip install edward 
+sudo apt-get -y install numpy
+
+} 2>&1 |tee prep.log
+

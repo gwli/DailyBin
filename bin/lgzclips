@@ -1,0 +1,115 @@
+#!/usr/bin/env python  
+# -*- coding=utf-8 -*-
+
+help = """
+# add facts
+(assert (xxx xxx))
+
+#. remove facts
+(retract f-index)
+#. remove all
+(retract *)
+
+#. watch staus
+(watch facts)
+(unwatch facts)
+
+#. status matain
+(clear)
+(load xxxx)
+
+#. file operation
+(save "duck.clp")
+(load "duck.clp")
+(bsave "duck.clp")
+(bload "duck.clp")
+(save-facts "xxx")
+(load-facts "xxx")
+(batch "xxxx") as execute on shell, after load you can continue
+Compoent
+========
+
+#. facts
+#. rules
+#. objects could be complex facts
+#. slots
+#. activations
+#. messages
+#. methods
+
+
+rules
+=====
+
+IF certain conditions are true
+THEN execute the following actions
+
+(defrule rule_name "optional_coments"
+     (pattern_1)
+     (pattern_2)
+     (pattern_n)
+=>
+     (action_1)
+     (action_2)
+     (action_n)
+)
+
+rule_name 就像函数名,相当于一个条件一个函数.
+clips 会根据pattern_1 去 facts-list 匹配.
+
+如果所有的条件成立,这条rule激活,放在agenda中.
+
+clips会调整agenda中rule的优先级.
+
+#. print the rules
+(ppdefrule rule_name)
+
+
+format
+======
+#. 换行 crlf
+　(printout t 'xxxx" crlf)
+
+(format t "HOUSE | %-11s | %-6s | %-6s | %-12s | %-13s%n" 
+           Nationality Color Pet Drink Smokes)
+ (format t "---------------------------------------------------------------%n")
+ (format t "  1   | %-11s | %-6s | %-6s | %-12s | %-13s%n" ?n1 ?c1 ?p1 ?d1 ?s1)
+ (format t "  2   | %-11s | %-6s | %-6s | %-12s | %-13s%n" ?n2 ?c2 ?p2 ?d2 ?s2)
+ (format t "  3   | %-11s | %-6s | %-6s | %-12s | %-13s%n" ?n3 ?c3 ?p3 ?d3 ?s3)
+ (format t "  4   | %-11s | %-6s | %-6s | %-12s | %-13s%n" ?n4 ?c4 ?p4 ?d4 ?s4)
+ (format t "  5   | %-11s | %-6s | %-6s | %-12s | %-13s%n" ?n5 ?c5 ?p5 ?d5 ?s5)
+ (printout t crlf crlf))
+
+
+HOUSE | Nationality | Color  | Pet    | Drink        | Smokes
+--------------------------------------------------------------------
+  1   | norwegian   | yellow | fox    | water        | kools
+  2   | ukrainian   | blue   | horse  | tea          | chesterfields
+  3   | englishman  | red    | snails | milk         | old-golds
+  4   | spaniard    | ivory  | dog    | orange-juice | lucky-strikes
+  5   | japanese    | green  | zebra  | coffee       | parliaments
+
+class
+=====
+
+(defclass DUCK (is-a USER))
+class-slot  -> class member variable
+defmessage-handler -> class method
+class-
+slot-replace$,
+slot-insert$
+slot-delete$
+
+(send [instanaces] print)
+call the function
+
+execution warapper
+==================
+
+http://pyclips.sourceforge.net/manual/pyclips-overview.html
+
+
+
+"""
+
+print help 

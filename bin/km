@@ -1,0 +1,5 @@
+#!/bin/sh
+twiki="/mnt/neo/Twiki/data"
+wiki="/mnt/neo/git"
+find $twiki $wiki -regex ".*\(rst\|txt\)" |xargs egrep -i "$1" |view -
+#find $twiki -regex "*.txt" |xargs grep "$1"

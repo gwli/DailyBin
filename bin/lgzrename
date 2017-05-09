@@ -1,0 +1,10 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+help = """
+linux专门一条:command:`rename` 指令。例如 我要把  *.txt* 变成 *.rst*
+:command:`rename 's/.txt/.rst/ *.txt` 
+"""
+
+print help
+

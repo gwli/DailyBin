@@ -1,0 +1,6 @@
+
+cd `dirname $0`
+bin=`pwd`
+bin=`dirname $bin`/bin 
+export PATH=$PATH:$bin
+cd -

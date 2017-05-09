@@ -1,0 +1,12 @@
+#!/usr/bin/env python
+
+manual="""
+#. mount 
+sshfs name@hostname:~/xxxxx   LocalPath
+#. umount
+fusermount -u LocalPath
+
+it is affected by network speed
+"""
+
+print manual

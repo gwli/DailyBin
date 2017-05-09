@@ -1,0 +1,23 @@
+digraph G {
+	graph [layout=dot rankdir=LR]
+
+// This is just an example for you to use as a template.
+// Edit as you like. Whenever you save a legal graph
+// the layout in the graphviz window will be updated.
+        IR[label="IR"];
+        IR1[label="IR"];
+        IR->canonalizion->scalar_simplication->loop_opts->target_specification[weight=8];
+        target_specification->IR1[weight=8] ;
+
+        {rank=same;
+        canonalizion-> { mem2reg inst_combine cfg_simplify} ;
+        }
+        scalar_simplication -> {inst_combine cfg_simplify} ;
+        {rank=same;
+        loop_opts ->  { loop_unroll,loop_unswitch,loop_rotate,loop_delete} ;
+        }
+        
+        {rank=same;
+        target_specification -> {loop_vectorization,loop_distribution,SLP_victorization} ;
+        }
+}

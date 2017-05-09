@@ -1,0 +1,2 @@
+echo "Please root account"
+scp `which startVnc` root@$1:/usr/local/bin/

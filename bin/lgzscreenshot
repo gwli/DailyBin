@@ -1,0 +1,16 @@
+#!/usr/bin/zsh
+#echo <<END
+#
+#imagemagic import 
+#gnome-screenshot 
+# -w --windows
+# -a --area
+# -f --file filename
+#
+#END
+
+#print -z gnome-screenshot -a -f img`date +%Y%m%d%H%M`  
+echo "gnome-screenshot -a -f img`date +%Y%m%d%H%M`" 
+
+
+

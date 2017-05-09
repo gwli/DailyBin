@@ -1,0 +1,15 @@
+#!/usr/bin/ipython -i  
+# -*- coding=utf-8 -*-
+
+def cmds():
+    rst = """
+    #. nvtxMarks
+    #. nvtxRangePushPop
+    #. nvtxRangeStartEnd 
+    
+    you refer to //sw/devtools/Agora/Dev/QuadDBringup/QuadD/Common/Nvtx
+    or git CompilingDebuggingProfiling/nvtx_sample
+    """
+    return rst
+
+cmds()

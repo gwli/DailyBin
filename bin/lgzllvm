@@ -1,0 +1,34 @@
+#!/usr/bin/ipython -i  
+# -*- coding=utf-8 -*-
+
+def how_to_emit_llvm_code_in_clang():
+    rst = """
+    Clang -S -emit-llvm 
+    """
+    return rst
+
+def how_to_generate_callgraph():
+    rst = """
+    clang -S -emit-llvm test.c -o - | opt -analyze -dot-callgraph
+    """
+    return rst
+   
+def how_to_analysis():
+    rst = """
+    opt --print-callgraph test.o
+    
+    CallGraph Root is: main
+    Call graph node <<null function>><<0x6f60f0>>  #uses=0
+      CS<0x0> calls function 'main'
+    
+    Call graph node for function: 'main'<<0x6e7330>>  #uses=1
+      CS<0x6dfdd8> calls function 'A'
+    
+    Call graph node for function: 'A'<<0x6e8b90>>  #uses=1
+      CS<0x6e17e8> calls function 'B'
+      CS<0x6e19b8> calls function 'G'
+
+    reference http://llvm.org/docs/Passes.html#introduction
+    """
+    return rst
+how_to_emit_llvm_code_in_clang()

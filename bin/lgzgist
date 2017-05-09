@@ -1,0 +1,32 @@
+#!/usr/bin/env python  
+# -*- coding=utf-8 -*-
+import re
+import os
+import sys
+
+help = """
+# upload to gist
+gist -d <bla bla> a.xx
+# getlist
+gist -l
+
+#. read gist
+gist -r "XXXXXX"
+"""
+
+def search(pat):
+    gist_links = os.popen('gist -l').read().split('\n') 
+    gist_links = filter(lambda x: x.startswith('https'), gist_links)
+    for link in gist_links:
+        title_format = "https://gist.github.com/(\w*) (.*)" 
+        m = re.search(title_format,link)
+        id = m.group(1)
+        title=m.group(2) 
+        if re.search(pat,title):
+            print "{:#^30}\n".format(title)
+            print os.popen("gist -r {}".format(id)).read() 
+
+if len(sys.argv) < 2:
+   print help 
+else:
+   search(sys.argv[1])
