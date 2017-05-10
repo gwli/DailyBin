@@ -14,6 +14,7 @@ import argparse
 
 GOOGLER="/home/devtoolsqa8/git/dailybin/bin/googler"
 EDITOR = os.environ.get("EDITOR",'vim')
+ASCIINEMA_DEMO="https://asciinema.org/a/6mod6437ets7l2ml7lsa9b99l"
 def gen_key():
     return ["本质","起点","分类","奇点","增长", "图","价值","有趣","量化","概率","费米计算","拓扑","优化","并行","统一","批判",
             "是什么","时间","地点","哪些人","为什么","如何","未来","不确定性"]
