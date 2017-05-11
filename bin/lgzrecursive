@@ -11,13 +11,42 @@ pp=pprint.PrettyPrinter(indent=4)
 import imp
 import tempfile
 import argparse
-
+import random
 GOOGLER="/home/devtoolsqa8/git/dailybin/bin/googler"
 EDITOR = os.environ.get("EDITOR",'vim')
 ASCIINEMA_DEMO="https://asciinema.org/a/6mod6437ets7l2ml7lsa9b99l"
+
 def gen_key():
-    return ["本质","起点","分类","奇点","增长", "图","价值","有趣","量化","概率","费米计算","拓扑","优化","并行","统一","批判",
-            "是什么","时间","地点","哪些人","为什么","如何","未来","不确定性"]
+    alphabeta = {
+       "Abstract": ("抽象","建模"),
+       "Begin" : ("启始", "balance shift","从心开始"),
+       "Combine" :("排列组合", "计算复杂度:常，对，线，平，立，指，阶"),
+       "Decompose" :("分解","分类","分块"),
+       "Evolve": ("演化","周期","迭代","增长"),
+       "Friend/Family" : ("很感谢你能能来，不遗憾你离开","局部化"),
+       "Graph":("可视化","联想","联接"),
+       "Healthy" :("健康","生老病死"),
+       "Interest" :("意义","复利","边际效应"),
+       "Judge" :("策略","战略","稀缺","成本","选择","歧视","租","需求","弹性","价格","短缺和过剩"),
+       "Keen": ("有趣","有料","有用"),
+       "Limit":("奇点","边界","极限"),
+       "Math":("概率","量化分析","费米计算"),
+       "Network":("网络","拓扑","关系","秩"),
+       "Optimize":("20/80原则","trade off","交换","优化"),
+       "4P":("并行","刻意练飞","展示","推动"),
+       "Question":("本质","4因5路"),
+       "Recusive":("不动点","随机"),
+       "Search":("近同反","外延"),
+       "Unify":("统一","合并"),
+       "Verify":("验证","证伪","批判"),
+       "5W1H":("是什么","时间","地点","哪些人","为什么","如何"),
+       "X": ("不确定","混沌"),
+       "Y": ("未来","历史"),
+       "Z": ("分层模块化","高维"),
+       }
+    for k,v in alphabeta.iteritems():
+        logger.debug("{}:{}".format(k,random.choice(v)))
+    return [random.choice(v) for k,v in alphabeta.iteritems()]
 def test():
     cmd = [GOOGLER,"-c hk", "-n 10", "--np --json" ,"hello world"]
     out= os.popen(" ".join(cmd)).read()
@@ -74,6 +103,7 @@ def recursive_search(resultfile="test",keyword="hello"):
         for keyword in keyword_list:
               
            cmd = [GOOGLER,"-c hk", "-n 10", "--np --json" ,keyword]
+           logger.info(cmd)
            out= os.popen(" ".join(cmd)).read()
            delete_status_line(resultfile)
            with open(resultfile,'a+') as f:
@@ -87,6 +117,8 @@ def recursive_search(resultfile="test",keyword="hello"):
               f.write(keyword)   
               f.write("\n")
               f.write("######\n")
+              f.write(Q_num)
+              f.write(" = ")
               f.write(out)
            Minor += 1    
         with open(resultfile,'a+') as f:
@@ -106,7 +138,7 @@ def recursive_search(resultfile="test",keyword="hello"):
 if __name__ == "__main__":
    parser = argparse.ArgumentParser(description="lgzrecursive")
    parser.add_argument('-f',help='result file',type=str,default='test.py')
-   parser.add_argument('-kw',help='result file',type=str,default='hello world')
+   parser.add_argument('-kw',help='result file',type=str,default='人类')
    args = parser.parse_args()
    
    recursive_search(args.f,keyword=args.kw)
