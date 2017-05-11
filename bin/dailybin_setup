@@ -8,12 +8,12 @@ function step () {
 }
 
 {
-#step "install how2:stackoverflow cli "
+step "install how2:stackoverflow cli "
 sudo apt-get -y install nodejs npm
 sudo ln -s /usr/bin/nodejs /usr/bin/node
 sudo npm install -g how2
 
-#step "install baidu pcs"
+step "install baidu pcs"
 cd /temp
 git clone https://github.com/GangZhuo/BaiduPCS.git
 cd BaiduPCS
@@ -21,13 +21,18 @@ make clean
 make 
 sudo make install
 
-#step "install baidu pcs"
+step "install baidu pcs"
 gem install gist
 
 
-#step install ewward
+step "install ewward"
 sudo pip install edward 
 sudo apt-get -y install numpy
+
+step "install asciinema"
+sudo apt-add-repository ppa:zanchey/asciinema
+sudo apt-get update
+sudo apt-get install asciinema
 
 } 2>&1 |tee prep.log
 
