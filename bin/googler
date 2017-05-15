@@ -80,7 +80,8 @@ COLORMAP = {k: '\x1b[%sm' % v for k, v in {
 }.items()}
 
 # Disguise as Firefox on Ubuntu
-USER_AGENT = ('Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:53.0) Gecko/20100101 Firefox/53.0')
+#USER_AGENT = ('Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:53.0) Gecko/20100101 Firefox/52.0')
+USER_AGENT =("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.97 Safari/537.11")
 ua = True  # User Agent is enabled by default
 
 # Self-upgrade parameters
@@ -778,8 +779,7 @@ class GoogleConnection(object):
         segments = urllib.parse.urlparse(url)
 
         host = segments.netloc
-        print("###########host:{}".format(host))
-        if host  and host != self._host:
+        if host != self._host:
             self.new_connection(host)
 
         relurl = urllib.parse.urlunparse(('', '') + segments[2:])
@@ -2300,7 +2300,7 @@ def parse_args(args=None, namespace=None):
     addarg('--notweak', action='store_true',
            help='disable TCP optimizations and forced TLS 1.2')
     addarg('--json', action='store_true',
-           help='output in JSON format; implies --noprompt')
+           help='output in JSON format; implies --exact and --noprompt')
     addarg('--show-browser-logs', action='store_true',
            help='do not suppress browser output (stdout and stderr)')
     addarg('--np', '--noprompt', dest='noninteractive', action='store_true',
@@ -2322,6 +2322,10 @@ def main():
 
     try:
         opts = parse_args()
+
+        # --json implies --exact
+        if opts.json:
+            opts.exact = True
 
         # Set logging level
         if opts.debug:
