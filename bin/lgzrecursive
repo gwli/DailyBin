@@ -28,7 +28,7 @@ def recursive_search(resultfile="test",keyword="hello"):
     while True:
         if status ==".":
            break
-        lgzsearch.update_status(resultfile)
+        lgzsearch.update_status(resultfile,sleep=False)
         subprocess.call([EDITOR,"+/Q_{}".format(Major),resultfile])
         rs=imp.load_source("data",resultfile) 
         status = rs.status

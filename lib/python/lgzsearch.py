@@ -10,6 +10,7 @@ pp=pprint.PrettyPrinter(indent=4)
 import imp
 import ast
 import random
+import time
 GOOGLER="/home/devtoolsqa8/git/dailybin/bin/googler"
 ASCIINEMA_DEMO="https://asciinema.org/a/6mod6437ets7l2ml7lsa9b99l"
 tpl = "/home/devtolsqa8/etc/lgzsearch_tpl"
@@ -74,15 +75,15 @@ def dump_km_foo(foo,output_path,status="."):
             ofile.write("\"")
             ofile.write(": [\"")
             ofile.write(v[0])
-            ofile.write(": \",\n")
+            ofile.write("\",\n")
             for ele in v[1:]:
                ofile.write("    {\n")
                for ek,ev in ele.iteritems():
                    ofile.write("    \"")
                    ofile.write(     ek)
-                   ofile.write("    \" :\"")
+                   ofile.write("\" :\"")
                    ofile.write(     ev)
-                   ofile.write("    \",\n")
+                   ofile.write("\",\n")
                ofile.write("    },\n")
             ofile.write("    ],\n")
 
@@ -121,7 +122,7 @@ def dump_km_foo(foo,output_path,status="."):
         ofile.write("]\n")
             
 
-def update_status(km_file):
+def update_status(km_file,sleep=True):
     logger.info("update :{}".format(km_file))
     km_foo =imp.load_source("data",km_file) 
     
@@ -134,6 +135,8 @@ def update_status(km_file):
        
        cmd = [GOOGLER,"-c hk", "-n 10", "--np --json" ,keyword]
        logger.info(cmd)
+       if sleep:
+          time.sleep(random.randint(5,20))
        out= os.popen(" ".join(cmd)).read()
        logger.info(out)
        Question_entry = ast.literal_eval(out)
