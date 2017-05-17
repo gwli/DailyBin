@@ -1,0 +1,19 @@
+#!/usr/bin/expect --
+
+set KM "/home/devtoolsqa8/git/KM"
+
+proc sendcmd {pattern cmd} {
+   expect {
+     -re $pattern {send "$cmd\r"}
+     timeout { puts "timeout please check ):<(" }
+   }
+}
+spawn bash
+set timeout 60
+set promp ".*\\$"
+sendcmd  "$promp" "git pull\r"
+sendcmd  "$promp" "lgzevolve -d $KM"
+sendcmd  "$promp"  "git push"
+sendcmd  "Username for.*:"　"gwli"
+sendcmd  "Password for.*:"  "L_G_W@20140514" 
+

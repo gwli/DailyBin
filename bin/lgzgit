@@ -1,0 +1,22 @@
+
+#from github import Github
+#import ConfigParser
+
+#cfg = ConfigParser.ConfigParser()
+#cfg.read("/home/devtoolsqa8/.file")
+#user = cfg.get("user" 
+#email= cfg.get("github","user")
+#password= cfg.get("github","pwd")
+
+#g = Github(user,password)
+#repo = g.get_user().get_repo("KM") 
+
+BuildRepo=~/git
+KM_repo=$BuildRepo/KM
+cd $KM_repo
+git pull
+lgzevolve -d $KM_repo
+find -iname "*.pyc" |xargs rm -fr
+git status --porcelain
+git commit -a
+git push 
