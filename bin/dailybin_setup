@@ -21,8 +21,10 @@ make clean
 make 
 sudo make install
 
-step "install baidu pcs"
+step "install git utils"
 gem install gist
+sudo pip install GitPython
+sudo pip install PyGitHub
 
 
 step "install ewward"
