@@ -126,7 +126,7 @@ def update_status(km_file,sleep=True):
     logger.info("update :{}".format(km_file))
     km_foo =imp.load_source("data",km_file) 
     
-    if km_foo.meta_data["status"] == ".":
+    if km_foo.meta_data["status"] != "mc":
        return
     km_foo.meta_data["Major"] +=1
     km_foo.meta_data["Minor"] = 0
