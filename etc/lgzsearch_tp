@@ -32,6 +32,11 @@ keyword_list = [
    "   局部化",
    "   如何",
 ]
+####status definition
+# done: nothing to do
+# mc:  machine continue task
+# hc:  human continue task
+# mc ->hc
 meta_data = {"status":".","Major": 0,"Minor": 0,"Prefix": "Q"}
 km_0_title = "title_tp"
 km_0_summary = "ummary_tp"
