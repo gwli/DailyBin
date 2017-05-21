@@ -1,0 +1,19 @@
+# -*- coding:utf-8 -*- 
+
+Q_dict = { 
+######
+#Q_0_0 #:adfadfafa: : : : 
+######
+}
+keyword_list = [ 
+   "   本质",
+]
+####status definition
+# done: nothing to do
+# mc:  machine continue task
+# hc:  human continue task
+# mc ->hc
+meta_data = {"status":"mc","Major": 0,"Minor": 0,"Prefix": "Q"}
+km_0_title = "title_tp"
+km_0_summary = "ummary_tp"
+km_1_tags = []

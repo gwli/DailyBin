@@ -13,8 +13,9 @@ import random
 import time
 GOOGLER="/home/devtoolsqa8/git/dailybin/bin/googler"
 ASCIINEMA_DEMO="https://asciinema.org/a/6mod6437ets7l2ml7lsa9b99l"
-tpl = "/home/devtolsqa8/etc/lgzsearch_tpl"
+tpl = "/home/devtoolsqa8/git/dailybin/etc/lgzsearch_tpl"
 
+     
 def gen_key():
     alphabeta = {
        "Abstract": ("抽象","建模"),
@@ -27,9 +28,9 @@ def gen_key():
        "Healthy" :("健康","生老病死"),
        "Interest" :("意义","复利","边际效应"),
        "Judge" :("策略","战略","稀缺","成本","选择","歧视","租","需求","弹性","价格","短缺和过剩"),
-       "Keen": ("有趣","有料","有用"),
+       "Keen": ("有趣","有料","有用","故事","诗歌","哲理"),
        "Limit":("奇点","边界","极限"),
-       "Math":("概率","量化分析","费米计算"),
+       "Math":("概率","量化分析","费米计算","度量"),
        "Network":("网络","拓扑","关系","秩"),
        "Optimize":("20/80原则","trade off","交换","优化"),
        "4P":("并行","刻意练飞","展示","推动"),
@@ -56,6 +57,7 @@ def test(km_repo):
            update_status(real_path)
 
 def dump_km_foo(foo,output_path,status="."):
+    logger.debug("output_path:{}".format(output_path))
     with open(output_path,'w') as ofile:
         #write header
         ofile.write("# -*- coding:utf-8 -*- \n\n")
@@ -82,6 +84,7 @@ def dump_km_foo(foo,output_path,status="."):
                    ofile.write("    \"")
                    ofile.write(     ek)
                    ofile.write("\" :\"")
+                   ev = ev.replace("\"","")
                    ofile.write(     ev)
                    ofile.write("\",\n")
                ofile.write("    },\n")
@@ -120,8 +123,13 @@ def dump_km_foo(foo,output_path,status="."):
             ofile.write("\",")
             
         ofile.write("]\n")
+    logger.debug("generate output:{}".format(output_path))
             
-
+def get_meta(km_file):
+    km_foo =imp.load_source("data",km_file) 
+    
+    return km_foo
+    
 def update_status(km_file,sleep=True):
     logger.info("update :{}".format(km_file))
     km_foo =imp.load_source("data",km_file) 
@@ -150,7 +158,7 @@ def mk_lgzsearch_tml(out_file,keyword):
     logger.info("read from :{}".format(tpl))
     km_foo =imp.load_source("data",tpl) 
     
-    if km_foo.meta_data["status"] == ".":
+    if km_foo.meta_data["status"] != "mc":
        return
     km_foo.meta_data["Major"] = 0
     km_foo.meta_data["Minor"] = 0
@@ -164,7 +172,7 @@ def mk_lgzsearch_tml(out_file,keyword):
     Question_entry = ast.literal_eval(out)
     Question_entry = [keyword] + Question_entry
     km_foo.Q_dict[Q_num]= Question_entry       
-    dump_km_foo(km_foo,out_file,status="c")
+    dump_km_foo(km_foo,out_file,status="mc")
 
 if __name__ == "__main__":
    

@@ -36,5 +36,8 @@ sudo apt-add-repository ppa:zanchey/asciinema
 sudo apt-get update
 sudo apt-get install asciinema
 
+step "web automation"
+sudo pip install  splinter chromedriver
+
 } 2>&1 |tee prep.log
 

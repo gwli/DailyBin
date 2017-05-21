@@ -14,24 +14,21 @@ import sys
 sys.path.append("/home/devtoolsqa8/git/dailybin/lib/python")
 import lgzsearch 
 EDITOR = os.environ.get("EDITOR",'vim')
-
 def recursive_search(resultfile="test",keyword="hello"):
-    if os.path.exists(resultfile):
-       subprocess.call([EDITOR,"+/Q_0",resultfile])
-    else:
+    if not os.path.exists(resultfile):
        lgzsearch.mk_lgzsearch_tml(resultfile,keyword) 
-       status = "contine"
    
     rs=imp.load_source("data",resultfile) 
     status = rs.meta_data['status'] 
     Major  = rs.meta_data['Major']
     while True:
+        subprocess.call([EDITOR,"+/Q_{}".format(Major),resultfile])
+        rs=imp.load_source("data",resultfile) 
+        status = rs.meta_data['status']
+        Major  = rs.meta_data['Major']
         if status ==".":
            break
         lgzsearch.update_status(resultfile,sleep=False)
-        subprocess.call([EDITOR,"+/Q_{}".format(Major),resultfile])
-        rs=imp.load_source("data",resultfile) 
-        status = rs.status
 
 if __name__ == "__main__":
    parser = argparse.ArgumentParser(description="lgzrecursive")
