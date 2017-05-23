@@ -56,7 +56,7 @@ def test(km_repo):
        if file.endswith(".py"):
            update_status(real_path)
 
-def dump_km_foo(foo,output_path,status="."):
+def dump_km_foo(foo,output_path,status="hc"):
     logger.debug("output_path:{}".format(output_path))
     with open(output_path,'w') as ofile:
         #write header
