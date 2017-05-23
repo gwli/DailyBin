@@ -119,7 +119,7 @@ def dump_km_foo(foo,output_path,status="."):
         ofile.write("km_1_tags = [")
         for tag in foo.km_1_tags:
             ofile.write("\"")
-            ofile.write(foo.km_1_tags)
+            ofile.write(tag)
             ofile.write("\",")
             
         ofile.write("]\n")
