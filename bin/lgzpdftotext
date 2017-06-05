@@ -1,0 +1,11 @@
+#convert $1 page-%03d.tif
+$2
+convert -density 300 $1 -depth 8 page-%03d.tif 
+for i in `ls *.tif`
+do
+   tesseract $i "$i".txt -l chi_sim
+done
+zip ${2}.zip page*
+rm -fr page*
+
+
