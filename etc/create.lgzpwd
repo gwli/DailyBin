@@ -1,0 +1,6 @@
+CREATE TABLE lgzpwd(
+  id INTEGER AUTO_INCREAMENT,
+  account Text,
+  password Text,
+  PRIMARY KEY (id)
+);
