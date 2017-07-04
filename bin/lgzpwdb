@@ -1,0 +1,132 @@
+#! /usr/bin/env python
+
+# Python's bundled WSGI server
+from cgi import parse_qs
+from wsgiref.simple_server import make_server
+server_port= 7896
+server_ip="10.19.226.116"
+sqlite_db = "/home/devtoolsqa8/git/dailybin/etc/lgzpwd.sl3"
+import sys
+sys.path.append("/home/devtoolsqa8/git/dailybin/lib/python")
+from lgzpasslib import gen_SHA, gen_key,listdb, encrypt,decryptfromdb, addtodb
+
+
+def parse_data(environ):
+    data = None
+    if environ['REQUEST_METHOD'] == 'POST':
+        request_body_size = int(environ.get('CONTENT_LENGTH', 0))
+        request_body = environ['wsgi.input'].read(request_body_size)
+        data = parse_qs(request_body)  # turns the qs to a dict
+    elif environ['REQUEST_METHOD'] == 'GET':
+        data = parse_qs(environ['QUERY_STRING'])
+
+    return data
+
+def application (environ, start_response):
+
+    response_body = "404 Not Found!"
+    status = '404 Not Found'
+
+    # Sorting and stringifying the environment key, value pairs
+    #response_body = [
+    #    '%s: %s' % (key, value) for key, value in sorted(environ.items())
+    #]
+    #response_body = '\n'.join(response_body)
+
+    path = environ['PATH_INFO']
+
+    if path == '/':
+        status = '200 OK'
+        response_body = '''Usage:
+GET   /                       Print help message and list all devices
+GET   /gen_account(msg=XXXX)  generate aacount
+GET   /gen_key(msg=XXXX,salt=XXX) generate key
+GET   /encrypt(key=XXX,msg=XXX)   encrypt a message
+POST  /update (key=xxxx,msg=xxx)  Update account db
+GET   /decrypt(key=xxxx,msg=xxx)  decrypt a message 
+'''
+
+    elif path == '/listdb':
+        status = '200 OK'
+        response_body = ""
+        response_body += '\tID\tAccount\tvalue\n'
+        for i in listdb(db_file=sqlite_db):
+           response_body += "\t%s\t%s\t%s\n" % ("_^_", i[1], i[2])
+           #response_body += "\t%s\t%s\t%s\n" % ("_^_", i[1], "ccc")
+           #response_body += '\t%s\t%s\t%s\n' % ("_^_", "bbb", i[2])
+           #response_body += "\t%s\t%s\t%s\n" % ("_^_", "bbb", "ccc")
+        response_body += '\n'
+        response_body =unicode(response_body).encode('utf-8')
+        print response_body
+
+    elif path == '/update':
+        status = '200 OK'
+        data = parse_data(environ) 
+        print data
+        if data.has_key('key') and data.has_key('msg'):
+            addtodb(data['key'][0], data['msg'][0],db_file=sqlite_db)
+            response_body = "Update '%s' with config '%s'!" % (data['key'][0], data['msg'][0])
+        else:
+            response_body = "account is not specified!"
+    elif path == '/gen_account':
+        status = '200 OK'
+        data = parse_data(environ) 
+        print data
+        response_body = "" 
+        if data.has_key('msg'):
+           account = gen_SHA(data['msg'][0]) 
+        response_body += data['msg'][0]
+        response_body += '\n'
+        response_body += account
+    elif path == '/gen_key':
+        status = '200 OK'
+        data = parse_data(environ) 
+        print data
+        response_body = "" 
+        if data.has_key('salt') and data.has_key('key'):
+           new_key = gen_key(data['key'][0],data['salt'][0]) 
+        response_body += data['key'][0] +"\t" + new_key
+    elif path == '/encrypt':
+        status = '200 OK'
+        data = parse_data(environ) 
+        print data
+        response_body = "" 
+        if data.has_key('msg') and data.has_key('key'):
+           new_msg = encrypt(data['key'][0],data['msg'][0]) 
+        response_body += data['key'][0] +"\t" + data['msg'][0] +'\t' + new_msg
+    elif path == '/decrypt':
+        status = '200 OK'
+        data = parse_data(environ) 
+        print data
+        response_body = "" 
+        if data.has_key('msg') and data.has_key('key'):
+           new_msg = decryptfromdb(data['key'][0],data['msg'][0],db_file=sqlite_db) 
+        response_body += data['key'][0] +"\t" + data['msg'][0] +'\t' + new_msg
+    else:
+        pass
+
+
+
+    response_headers = [
+        ('Content-Type', 'text/plain'),
+        ('Content-Length', str(len(response_body)))
+    ]
+    start_response(status, response_headers)
+
+    return [response_body]
+
+
+
+
+# Instantiate the server
+httpd = make_server (
+    #'127.0.0.1', # The host name
+    '',
+    server_port, # A port number where to wait for the request
+    application # The application object name, in this case a function
+)
+
+print "Serving on port %d" % server_port
+
+# Wait for a single request, serve it and quit
+httpd.serve_forever()
