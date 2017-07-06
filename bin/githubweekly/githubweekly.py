@@ -29,9 +29,9 @@ def get_readme(input_file):
     with open("index.md",'w') as f:
         for index,ele in enumerate(data.repo_list):
             f.write("# {}\n".format( ele['name']))
-            f.write("* language {},watchers_count".format(ele['language'],ele['watchers_count']))
-            f.write("* <{}>".format( ele['html_url']))
-            f.write("* {}".format( ele['description']))
+            f.write("* language {},watchers_count\n".format(ele['language'],ele['watchers_count']))
+            f.write("* <{}>\n".format( ele['html_url']))
+            f.write("* {}\n".format( ele['description']))
             repo= ele['html_url'].split('/')[-2:]
             print repo
             read_me = " https://raw.githubusercontent.com/{}/{}/master/README.md".format(repo[0],repo[1]) 
