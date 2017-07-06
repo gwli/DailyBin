@@ -32,6 +32,7 @@ def get_readme(input_file):
             f.write("* language {},watchers_count\n".format(ele['language'],ele['watchers_count']))
             f.write("* <{}>\n".format( ele['html_url']))
             f.write("* {}\n".format( ele['description']))
+            f.write("*\n")
             repo= ele['html_url'].split('/')[-2:]
             print repo
             read_me = " https://raw.githubusercontent.com/{}/{}/master/README.md".format(repo[0],repo[1]) 
