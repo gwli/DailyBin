@@ -29,7 +29,7 @@ def get_readme(input_file):
     with open("index.md",'w') as f:
         for index,ele in enumerate(data.repo_list):
             f.write("# {}\n".format( ele['name']))
-            f.write("* language {},watchers_count\n".format(ele['language'],ele['watchers_count']))
+            f.write("* language {},watchers_count{}\n".format(ele['language'],ele['watchers_count']))
             f.write("* <{}>\n".format( ele['html_url']))
             f.write("* {}\n".format( ele['description']))
             f.write("*\n")
