@@ -4,7 +4,7 @@ import os
 import imp
 import datetime
 import argparse
-today=datetime.datetime.now().strftime("%Y_5m_%d")
+today=datetime.datetime.now().strftime("%Y_%m_%d")
 prefix="github_{}".format(today)
 def gen_init_file():
     output_file = "{}_input.py".format(prefix)
