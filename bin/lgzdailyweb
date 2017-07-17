@@ -1,0 +1,125 @@
+import multiprocessing
+import os
+import logging
+import time
+import subprocess
+logging.basicConfig(level=logging.DEBUG)
+logger=logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+import pprint 
+pp=pprint.PrettyPrinter(indent=4)
+
+
+
+def firefox(urllist):
+    def wrapper():
+        cmd = "firefox -new-tag {} ".format(" ".join(urllist()))
+        logger.debug(cmd)
+        os.system(cmd)
+        #subprocess.Popen(cmd)
+    return wrapper
+
+
+def stackoverflow():
+   """
+      check the stackoverflow questions
+   """
+   prefix = "http://stackoverflow.com/questions/tagged"
+
+   domain_list = ["dummy",
+       "nsight",  
+       "cuda",
+       "android-ndk",
+   ]
+
+   url_list = map(lambda x: "{}/{}".format(prefix,x),domain_list)
+   firefox(url_list)
+
+@firefox
+def forum_mobile():
+   """
+      check the forum questions
+   """
+   prefix = "https://devtalk.nvidia.com/default/board"
+
+   domain_list = [ 
+       "",
+       "82/nsight-tegra-visual-studio-edition/",
+       "80/tegra-system-profiler/",
+   ]
+   return map(lambda x: "{}/{}".format(prefix,x),domain_list)
+
+@firefox
+def forum_nexus():
+   """
+      check the forum questions
+   """
+   prefix = "https://devtalk.nvidia.com/default/board"
+
+   domain_list = [ "73/ui-composer/",  
+       "61/development-tools/",
+       "84/nsight-visual-studio-edition/",
+       "83/nsight-eclipse-edition/",
+       "82/nsight-tegra-visual-studio-edition/",
+       "154/tegra-graphics-debugger/",
+       "81/tegra-tools/",
+       "80/tegra-system-profiler/",
+       "78/visual-profiler/",
+       "76/system-management-and-monitoring-nvml-/",
+       "74/other-tools/",
+       "77/nvapi/",
+       "86/cuda-gdb/",
+       "85/cuda-memcheck/"
+   ]
+
+   return map(lambda x: "{}/{}".format(prefix,x),domain_list)
+
+@firefox 
+def readthedoc():
+    """ check the daily LLVM,SLAM,DL,Investment,security
+    """
+    url_list = [
+       "http://www.baidu.com",
+       "http://slam-study.readthedocs.io/en/latest/Framework.html",
+       "http://deeplearningongpu.readthedocs.io/en/latest/",
+       "http://programming.readthedocs.io/en/latest/index.html",
+       "http://mylinuxskill.readthedocs.io/en/latest/",
+       "http://vimskill.readthedocs.io/",
+       "http://visioncompute.readthedocs.io/en/latest/",
+       "http://knowledgemanagement.readthedocs.io/en/latest/",
+    ]
+    return url_list
+
+@firefox
+def webreport():
+    """Check the automation report of last night
+    """
+    url_list = [
+       "http://qafarm.nvidia.com/qanew/Product/index/id/512afda52e91617cc8a2f808"
+       "http://qafarm.nvidia.com/qanew/Application/index/id/51428e0a2e91617cc8a2faab/domain/BuildingTest",
+       "http://qafarm.nvidia.com/qanew/Application/index/id/51428e0a2e91617cc8a2faab/domain/DebuggerTest",
+       "http://qafarm.nvidia.com/qanew/Application/index/id/51428e0a2e91617cc8a2faab/domain/SanityTest",
+       "http://qafarm.nvidia.com/qanew/Application/index/id/528dc27ec203c8f777038deb",
+    ]
+    return url_list
+    
+
+def batch():
+    os.system("pkill firefox")
+    time.sleep(10) 
+    multiprocessing.Process(target=webreport).start()
+    time.sleep(10) 
+    multiprocessing.Process(target=forum_mobile).start()
+    time.sleep(10) 
+    multiprocessing.Process(target=stackoverflow).start()
+    time.sleep(10) 
+    multiprocessing.Process(target=readthedoc).start()
+    #forum()
+    #webreport()
+
+      
+
+
+
+if __name__ == "__main__":
+   batch()
