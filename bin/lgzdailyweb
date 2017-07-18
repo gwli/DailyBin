@@ -3,7 +3,6 @@ import multiprocessing
 import os
 import logging
 import time
-import subprocess
 logging.basicConfig(level=logging.DEBUG)
 logger=logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -83,7 +82,7 @@ def readthedoc():
        "http://www.baidu.com",
        "http://slam-study.readthedocs.io/en/latest/Framework.html",
        "http://deeplearningongpu.readthedocs.io/en/latest/",
-       "http://programming.readthedocs.io/en/latest/index.html",
+       "http://programming.readthedocs.io/en/latest/content/Stage_2.html#profilingandanalysis",
        "http://mylinuxskill.readthedocs.io/en/latest/",
        "http://vimskill.readthedocs.io/",
        "http://visioncompute.readthedocs.io/en/latest/",
