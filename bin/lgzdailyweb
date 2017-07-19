@@ -83,6 +83,8 @@ def readthedoc():
        "http://slam-study.readthedocs.io/en/latest/Framework.html",
        "http://deeplearningongpu.readthedocs.io/en/latest/",
        "http://programming.readthedocs.io/en/latest/content/Stage_2.html#profilingandanalysis",
+       "http://blockchain.readthedocs.io/en/latest/Framework.html",
+       "http://graphicrenderandengine.readthedocs.io/en/latest/",
        "http://mylinuxskill.readthedocs.io/en/latest/",
        "http://vimskill.readthedocs.io/",
        "http://visioncompute.readthedocs.io/en/latest/",
