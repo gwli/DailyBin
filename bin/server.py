@@ -1,16 +1,11 @@
 #! /usr/bin/env python
 
-import MySQLdb
-
 # Python's bundled WSGI server
 from cgi import parse_qs
 from wsgiref.simple_server import make_server
-server_port=8051
+server_port= 7896
 server_ip="10.19.226.116"
-mysql_host = "localhost"
-mysql_db = "gtlmachines"
-mysql_user = "root"
-mysql_passwd = "devtoolsqa"
+mysql_db = "/home/devtoolsqa8/git/dailybin/etc/lgzpwd.sl3"
 
 
 def parse_data(environ):
@@ -42,10 +37,11 @@ def application (environ, start_response):
         status = '200 OK'
         response_body = '''Usage:
 GET   /                       Print help message and list all devices
-GET   /list                   List all devices
-GET   /list?hostname=xxx      List device with name
-POST  /update (hostname=xxx)  Update host, create host if not exist
-GET   /dl                     Download client script
+GET   /gen_account(msg=XXXX)  generate aacount
+GET   /gen_key(msg=XXXX,salt=XXX) generate key
+GET   /encrypt(key=XXX,msg=XXX)   encrypt a message
+POST  /update (key=xxxx,msg=xxx)  Update account db
+GET   /decrypt(key=xxxx,msg=xxx)  decrypt a message 
 '''
 
     elif path == '/list':
@@ -79,31 +75,7 @@ GET   /dl                     Download client script
             response_body = "hostname is not specified!"
     elif path == '/dl':
         status = '200 OK'
-        response_body = """
-use strict;
-use warnings;
-use LWP::UserAgent;
-my @systeminfo = `systeminfo /FO LIST`; 
-chomp @systeminfo;
-my $hostname ="";
-my $mem_size = "";
-foreach my $line (@systeminfo){
-   if ($line =~/Host Name/i) {
-      ($_,$hostname)=split /:/,$line;
-      
-   }
-   if ($line =~/Total Physical Memory/i) {
-       ($_,$mem_size)=split /:/, $line;
-   }
-
-}
-chomp $hostname;
-chomp $mem_size;
-$hostname =~ s/^[\s\t]+//;
-$mem_size =~ s/^[\s\t]+//;
-my $ua = LWP::UserAgent->new;
-
-""" 
+        response_body = """ """ 
     
         response_body += r"""my $server_endpoint = "http://{}:{}/update";""".format(server_ip,server_port)
         response_body += """

@@ -1,5 +1,31 @@
+#!/usr/bin/env python
+# -*- coding=utf-8 -*-
+import sys
+sys.path.append("/home/devtoolsqa8/git/dailybin/lib/python")
+from gitsearch import search,get_readme,gen_html,send_mail
+import datetime
+import argparse
 
-#from github import Github
+if __name__== "__main__":
+   parser = argparse.ArgumentParser(description="githubweekly")
+   parser.add_argument('-m',help='mail address',type=str,default='')
+   parser.add_argument('-s',help='search topics',type=str,default='')
+   parser.add_argument('-p',help='prefix for internal data file',type=str,default='')
+   parser.add_argument('--readme',help='readme list',type=str,default='')
+   parser.add_argument('--subject',help='mail subject',type=str,default='')
+   
+   args = parser.parse_args()
+   today=datetime.datetime.now().strftime("%Y_%m_%d")
+   prefix="{}_github_{}".format(args.p,today)
+   output_file = "{}_input.py".format(prefix)
+   if args.s != '':
+      search(args.s,ofile=output_file)
+   if args.readme != '':
+      get_readme(args.readme) 
+   if args.m != '':
+      send_mail(args.m,gen_html(get_readme(search(args.s,output_file)),"{}.html".format(prefix)),args.subject)
+
+#from github import Gitaihub
 #import ConfigParser
 
 #cfg = ConfigParser.ConfigParser()
@@ -11,12 +37,12 @@
 #g = Github(user,password)
 #repo = g.get_user().get_repo("KM") 
 
-BuildRepo=~/git
-KM_repo=$BuildRepo/KM
-cd $KM_repo
-git pull
-lgzevolve -d $KM_repo
-find -iname "*.pyc" |xargs rm -fr
-git status --porcelain
-git commit -a
-git push 
+#BuildRepo=~/git
+#KM_repo=$BuildRepo/KM
+#cd $KM_repo
+#git pull
+#lgzevolve -d $KM_repo
+#find -iname "*.pyc" |xargs rm -fr
+#git status --porcelain
+#git commit -a
+#git push 

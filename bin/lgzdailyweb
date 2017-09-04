@@ -92,6 +92,14 @@ def readthedoc():
     ]
     return url_list
 
+@firefox 
+def kejilie():
+    """ check the daily LLVM,SLAM,DL,Investment,security
+    """
+    url_list = [
+       "http://www.kejilie.com",
+    ]
+    return url_list
 @firefox
 def webreport():
     """Check the automation report of last night
@@ -116,6 +124,9 @@ def batch():
     multiprocessing.Process(target=stackoverflow).start()
     time.sleep(10) 
     multiprocessing.Process(target=readthedoc).start()
+    time.sleep(10) 
+    time.sleep(10) 
+    multiprocessing.Process(target=kejilie).start()
     #forum()
     #webreport()
 
