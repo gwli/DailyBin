@@ -97,9 +97,12 @@ def kejilie():
     """ check the daily LLVM,SLAM,DL,Investment,security
     """
     url_list = [
+       "http://www.baidu.com",
        "http://www.kejilie.com",
+       "https://www.google.com.hk/finance?hl=zh-CN",
     ]
     return url_list
+
 @firefox
 def webreport():
     """Check the automation report of last night
