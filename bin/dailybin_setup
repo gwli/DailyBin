@@ -57,5 +57,9 @@ sudo pip install nxpd
 
 step "auto  qqbot, and wxpy"
 sudo pip install  qqbot wxpy
+
+step "install pyan static generate callgraph"
+git clone https://github.com/davidfraser/pyan.git
+sudo pip install pycallgraph
 } 2>&1 |tee prep.log
 
