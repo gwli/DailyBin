@@ -1,0 +1,6 @@
+from trello import TrelloApi
+#TRELLO_APP_KEY="916c6e17177b3aa7f862a0634dfeb1e9"
+TRELLO_APP_KEY="cca37b11be72ce6f5ef59c174edbf020ff31b2d267836d32ca5bf4193b2f74f9"
+trello = TrelloApi(TRELLO_APP_KEY)
+#print trello.boards.get('8rXEn5ox')
+print trello.boards.get('TXg5b3Cf')

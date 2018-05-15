@@ -1,0 +1,10 @@
+lgzpass -t g -msg "vili@nvidia.com:webex"
+# 48ba57ee1fd5df78ad0f5d2e90f6c02091f09811
+lgzpass -t k -k "48ba57ee1fd5df78ad0f5d2e90f6c02091f09811" -s "lgz"
+#1ba33ab9aed58a7c07d59a812f1c23e9
+
+lgzpass -t c -k "1ba33ab9aed58a7c07d59a812f1c23e9" -msg "621676109 3159$"
+#13ba6e4f68ed1b887451a1372b6c3d2b
+lgzpass -t d -k "1ba33ab9aed58a7c07d59a812f1c23e9" -msg "48ba57ee1fd5df78ad0f5d2e90f6c02091f09811" -db ../etc/lgzpwd.sl3
+#621676109 3159$0
+#lgzpass -t a -k "48ba57ee1fd5df78ad0f5d2e90f6c02091f09811" -msg "13ba6e4f68ed1b887451a1372b6c3d2b"
