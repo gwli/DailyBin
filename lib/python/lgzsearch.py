@@ -11,9 +11,9 @@ import imp
 import ast
 import random
 import time
-GOOGLER="/home/devtoolsqa8/git/dailybin/bin/googler"
+GOOGLER="/usr/local/bin/googler"
 ASCIINEMA_DEMO="https://asciinema.org/a/6mod6437ets7l2ml7lsa9b99l"
-tpl = "/home/devtoolsqa8/git/dailybin/etc/lgzsearch_tpl"
+tpl = "/home/vili2/git/dailybin/etc/lgzsearch_tpl"
 
      
 def gen_key():

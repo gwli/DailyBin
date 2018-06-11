@@ -11,7 +11,7 @@ pp=pprint.PrettyPrinter(indent=4)
 import imp
 import argparse
 import sys
-sys.path.append("/home/devtoolsqa8/git/dailybin/lib/python")
+sys.path.append("/home/vili2/git/dailybin/lib/python")
 import lgzsearch 
 EDITOR = os.environ.get("EDITOR",'vim')
 def recursive_search(resultfile="test",keyword="hello"):
