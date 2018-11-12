@@ -61,5 +61,12 @@ sudo pip install  qqbot wxpy
 step "install pyan static generate callgraph"
 git clone https://github.com/davidfraser/pyan.git
 sudo pip install pycallgraph
+
+
+step "install hub"
+mkdir temp_hub
+wget https://github.com/github/hub/releases/download/v2.6.0/hub-linux-amd64-2.6.0.tgz
+cd temp_hub && tar -xzvf ../hub-linux-amd* && cd hub* && sudo ./install
+rm -fr temp_hub
 } 2>&1 |tee prep.log
 
